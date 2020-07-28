@@ -56,12 +56,12 @@ public class APIController {
 		MatchlistDTO matchlistDTO = apiService.getMatchList(summonerDTO.getAccountId(), map);
 		 
 		ModelAndView mav = new ModelAndView();		
-		mav.addObject("summonerDTO", summonerDTO);
+		mav.addObject("summonerDTO", summonerDTO); 
 		mav.addObject("leagueEntryDTO", leagueEntryDTO);
 		mav.addObject("matchlistDTO",matchlistDTO);
 		mav.addObject("searchId", searchId);  
 		mav.addObject("display", "../search/searchSummoner.jsp");
 		mav.setViewName("/main/main"); 
 		return mav;				
-	} 		
+	} 		 
 }

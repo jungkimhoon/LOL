@@ -38,7 +38,7 @@ public class APIServiceImpl implements APIService {
 		BufferedReader br = null;
 		HashMap<Integer, String> map = new HashMap<Integer, String>();
 		
-		try {			
+		try {			  
 			URL url = new URL(urlStr);
 			HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
 			urlConnection.setRequestMethod("GET");
