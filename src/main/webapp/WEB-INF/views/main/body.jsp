@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <style type="text/css">
 	.searchDiv { 
 		margin: auto 0px; 
 	} 
 	
-	#myCarousel{
+	#myCarousel{ 
 		height: 800px;
 	}
 	.carousel-control {background: none !important; }
@@ -21,7 +22,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-                       
+ <!-- !!!!!!!!!!!!!!!!!!!! 검색 폼   -->                    
 <div>  
 <div class="searchDiv" align="center">
 <form name="searchIdForm">
@@ -29,7 +30,7 @@
 <button id="searchBtn" style="width:100px; height:35px;">검색</button>   
 </form> 
 </div></div>
-
+<br>
 <div class="container"> 
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
@@ -66,8 +67,13 @@
   </div>
 </div>
 
-	<img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/588.png"> 
-
+	<br>
+	<h1>이번주 로테이션 챔피언</h1>
+	
+	<c:forEach var="imgName" items="${imgName}">
+		<img src="https://ddragon.leagueoflegends.com/cdn/10.6.1/img/champion/${imgName }.png" width="70" height="70">
+	</c:forEach> 
+	
 <script type="text/javascript">   
 $('.carousel').carousel({
   interval: 2000
@@ -89,5 +95,7 @@ $('#searchBtn').click(function(){
 		document.searchIdForm.submit();
 	}
 }); 
+
+
 </script> 
 
