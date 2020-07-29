@@ -73,24 +73,5 @@
 $('.carousel').carousel({
   interval: 2000
 }); 
-
-$('#searchBtn').click(function(){	
-	if($('input[name=searchId]').val()==''){
-		
-	}else{
-		/* $.ajax({  
-			type : 'GET',
-			url : 'https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/배꼽때?api_key=RGAPI-8a72924c-702a-4798-83c6-0857b2e32097',
-				success : function(data){
-					alert(data.name);				 
-			}
-		});   */
-		document.searchIdForm.method = 'get'; 
-		document.searchIdForm.action = '/search/searchSummoner';
-		document.searchIdForm.submit();
-	}
-}); 
-
-
 </script> 
 

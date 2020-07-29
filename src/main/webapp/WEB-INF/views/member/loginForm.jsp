@@ -5,7 +5,7 @@
 a.searchA {color:blak; text-decoration: none; font-size: 8pt;}
 a.searchA:link {color: black; text-decoration: none;}
 a.searchA:visited {color: black; text-decoration: none;}
-a.searchA:hover {color: #5f0080; text-decoration: none; font-weight: bolder;}
+a.searchA:hover {color: #000000; text-decoration: none; font-weight: bolder;}
 a.searchA:active {color: black; text-decoration: none;}
 
 .box{
@@ -19,19 +19,19 @@ a.searchA:active {color: black; text-decoration: none;}
 
 .layout{   
 	width: 340px;
-	height: 54px;
+	height: 54px; 
 	line-height: 20px;   
     border-radius: 3px; 
     background: #fff;
-    border: 1px solid #5f0080;
+    border: 1px solid #000000;
     outline: none; 
-    color: #5f0080; 
+    color: #000000; 
     padding: 0 15px;
 }
 
 </style> 
 
- 
+ <div style="height:50px;"></div>
 <div class="box">  
 <h2 align="center">로그인</h2>
 	<div>
@@ -51,22 +51,19 @@ a.searchA:active {color: black; text-decoration: none;}
 		<a class="searchA" href="/bitFarm/member/findIdForm">아이디 찾기</a> 
 		<a class="searchA" href="/bitFarm/member/findPwdForm">비밀번호 찾기</a>&nbsp;
 		<div style="height:5px;"></div>  
-		<input class="layout" type="button" id="loginBtn" value="로그인" style="color: white; background-color: #5f0080; border: #5f0080; border-radius: 5px; cursor: pointer;">
+		<input class="layout" type="button" id="loginBtn" value="로그인" style="color: white; background-color: #000000; border: #000000; border-radius: 5px; cursor: pointer;">
 	</div>   
 		<div style="height:5px;"></div>
 	<div>
-		<input class="layout" type="button" value="회원가입" onclick="location.href='signUp'" style="border-radius: 5px; cursor: pointer;"> 
-	</div>	 
-		<div style="height:5px;"></div>   
-	<div style="height:60px;"> 
-
+		<input class="layout" type="button" value="회원가입" onclick="location.href='signUpForm'" style="border-radius: 5px; cursor: pointer;"> 
+	</div>	   
 </div>   
 
-<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">   
    
     $('#loginBtn').click(function(){
-    	$('#loginIdDiv').empty();
+    	$('#loginIdDiv').empty(); 
     	$('#loginPwdDiv').empty(); 
     	if($('input[name=id]').val()==''){
     		$('#loginIdDiv').text('아이디를 입력해주세요.');
