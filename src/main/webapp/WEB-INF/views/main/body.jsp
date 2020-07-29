@@ -22,14 +22,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
- <!-- !!!!!!!!!!!!!!!!!!!! 검색 폼   -->                    
-<div>  
-<div class="searchDiv" align="center">
-<form name="searchIdForm">
-<input type="text" name="searchId" placeholder="소환사 명..." style="width:460px; height:40px; padding: 0 9px;">
-<button id="searchBtn" style="width:100px; height:35px;">검색</button>   
-</form> 
-</div></div>
+   	<div style="width:80%; margin: 0 auto;" align="center">
+   	<h1>이번주 로테이션 챔피언</h1>
+	<c:forEach var="imgName" items="${imgName}">
+		<img src="https://ddragon.leagueoflegends.com/cdn/10.6.1/img/champion/${imgName }.png" width="70" height="70" title="${imgName }" style="cursor: pointer;">
+	</c:forEach>
+	</div>   
+
 <br>
 <div class="container"> 
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -68,16 +67,12 @@
 </div>
 
 	<br>
-	<h1>이번주 로테이션 챔피언</h1>
-	
-	<c:forEach var="imgName" items="${imgName}">
-		<img src="https://ddragon.leagueoflegends.com/cdn/10.6.1/img/champion/${imgName }.png" width="70" height="70">
-	</c:forEach> 
+
 	
 <script type="text/javascript">   
 $('.carousel').carousel({
   interval: 2000
-});
+}); 
 
 $('#searchBtn').click(function(){	
 	if($('input[name=searchId]').val()==''){

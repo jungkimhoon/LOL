@@ -4,41 +4,47 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<div style="height: 200px;">
+	<div style="float:left; width:30px;">&nbsp;</div>  
+	<div style="float:left;"><img src="http://ddragon.leagueoflegends.com/cdn/10.6.1/img/profileicon/${summonerDTO.profileIconId }.png" width="130px" height="130px"></div>
+	
+	<div style="float:left; width:15px;">&nbsp;</div>  
+	<div style="float:left;"><font style="font-size: 18pt; font-weight: bold;">${summonerDTO.name }</font><br>
+	레벨 : ${summonerDTO.summonerLevel }<br>
+	랭크 : ${leagueEntryDTO.wins }승 ${leagueEntryDTO.losses }패<br>
+	</div> 
+	<div style="float:left; width:30px;">&nbsp;</div>  
+	<div style="float: left">	
+		<img src="/resources/images/ranked-emblems/Emblem_${leagueEntryDTO.tier}.png" width="130px" height="130px">			
+	</div> 	 
+	<div style="float:left; width:15px;">&nbsp;</div>	
+		<c:if test="${leagueEntryDTO.queueType eq 'RANKED_SOLO_5x5'}">솔로랭크<br></c:if>
+		<c:if test="${leagueEntryDTO.queueType eq 'RANKED_TEAM_5x5'}">5:5랭크<br></c:if>
+		${leagueEntryDTO.tier } ${leagueEntryDTO.rank }<br>
+		${leagueEntryDTO.leaguePoints } LP<br> 
+		${leagueEntryDTO.wins }승 ${leagueEntryDTO.losses }패<br>
+		<%-- <fmt:parseNumber var="winRate" value="${leagueEntryDTO.wins / (leagueEntryDTO.losses + leagueEntryDTO.wins) * 100 }" integerOnly="true"/>
+		승률 : ${winRate }%<br>  --%>
+</div> 
 
-<h1>사용자정보</h1>
-<h3>${summonerDTO.name }</h3>
-<img src="http://ddragon.leagueoflegends.com/cdn/10.6.1/img/profileicon/${summonerDTO.profileIconId }.png" width="100" height="100"><br>
-<c:if test="${leagueEntryDTO.queueType eq 'RANKED_SOLO_5x5'}">솔로랭크<br></c:if>
-<c:if test="${leagueEntryDTO.queueType eq 'RANKED_TEAM_5x5'}">5:5랭크<br></c:if>
-${leagueEntryDTO.tier } ${leagueEntryDTO.rank }<br>
-${leagueEntryDTO.leaguePoints } LP<br>
-${leagueEntryDTO.wins }승 ${leagueEntryDTO.losses }패<br>
-<fmt:parseNumber var="winRate" value="${leagueEntryDTO.wins / (leagueEntryDTO.losses + leagueEntryDTO.wins) * 100 }" integerOnly="true"/>
-승률 : ${winRate }%<br> 
-<img src="/resources/images/ranked-emblems/Emblem_${leagueEntryDTO.tier}.png" width="100">
 
-<h1>최근 전적 (20게임)</h1>
+<div style="height:50px;"></div>
+
+
+<h1>최근 전적 (20게임)</h1> 
 
 <c:forEach var="matches" items="${matchlistDTO.matches}">
-		<img src="https://ddragon.leagueoflegends.com/cdn/10.6.1/img/champion/${matches.championName }.png" width="70" height="70">
-		${matches.gameId }&emsp;<br>
-		${matches.role }&emsp;<br>
-		${matches.season }&emsp;<br>
-		${matches.platformId }&emsp;<br>
+<div style="border: 1px solid red; height:70px;">
+	<div style="float: left; width:100px;">&nbsp;</div>
+	<div style="float: left; border: 1px solid blue; height:70px"><img src="https://ddragon.leagueoflegends.com/cdn/10.6.1/img/champion/${matches.championName }.png" width="70" height="70"></div>
+	<div style="float: left; width:15px;">&nbsp;</div>
+	<div style="float: left; height:70px;">
 		${matches.championName }&emsp;<br>
-		${matches.queue }&emsp;<br>
-		${matches.lane }&emsp;<br>
-		${matches.timestamp }&emsp;<br>
 		<c:if test="${matches.win}">승리</c:if>
 		<c:if test="${!matches.win}">패배</c:if><br>
 		${matches.kills } / ${matches.assists } / ${matches.deaths } <br>
+	</div>
+</div>
 </c:forEach> 
 
 <h1>summonerDTO</h1>

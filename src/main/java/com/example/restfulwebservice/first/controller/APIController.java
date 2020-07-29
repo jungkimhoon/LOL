@@ -50,7 +50,7 @@ public class APIController {
 	public ModelAndView searchSummoner(@RequestParam String searchId) {
 		
 		HashMap<Integer, String> map = apiService.ChampIdToKey();
-		
+		System.out.println(searchId); 
 		SummonerDTO summonerDTO = apiService.getSummoner(searchId);	
 		LeagueEntryDTO leagueEntryDTO = apiService.getLeagueEntry(summonerDTO.getId());
 		MatchlistDTO matchlistDTO = apiService.getMatchList(summonerDTO.getAccountId(), map);
