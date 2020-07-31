@@ -5,5 +5,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.example.restfulwebservice.first.dao.MemberDAO">
 	<select id="getInfo" resultType="memberDTO">
 		select * from member
-	</select>	 
+	</select> 
+	
+	<insert id="signUp" parameterType="java.util.Map">
+		insert into member values (#{id}, #{pwd}, #{email}, #{phone}, sysdate, member_SEQ.nextval)
+	</insert> 	
+	
+	<select id="login" parameterType="java.util.Map" resultType="memberDTO">
+		select * from member where id = #{id} and pwd = #{pwd} 
+	</select>  
 </mapper>           

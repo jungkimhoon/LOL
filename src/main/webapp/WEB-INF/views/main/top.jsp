@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 
 <head>
@@ -18,8 +19,9 @@
 
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-    <div class="container">
-      <a class="navbar-brand" href="/main/main">전적 검색</a>
+    <div class="container">    
+      <a class="navbar-brand" href="/main/main">전적 검색</a>    
+  
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -29,13 +31,25 @@
 </form> 
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
+          <c:if test="${memberId != null }">
+      	  <li class="nav-item active">
+            <a class="nav-link" href="#">${memberId }님
+              <span class="sr-only">(current)</span>
+            </a>
+         </li>
+   		 </c:if>
           <li class="nav-item active">
             <a class="nav-link" href="/main/main">메인
               <span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/member/loginForm">로그인</a>
+          	<c:if test="${memberId == null }">
+            	<a class="nav-link" href="/member/loginForm">로그인</a>
+            </c:if>
+            <c:if test="${memberId != null }">
+            	<a class="nav-link" href="/member/logout">로그아웃</a>
+            </c:if>
           </li>                    
            <li class="nav-item dropdown">
              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

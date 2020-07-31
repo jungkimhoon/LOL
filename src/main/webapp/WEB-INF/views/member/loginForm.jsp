@@ -79,21 +79,16 @@ a.searchA:active {color: black; text-decoration: none;}
     	}else{ 
     		$.ajax({ 
     			type : 'post',
-    			url : '/bitFarm/member/login',
+    			url : '/member/login',
     			data : {'id' : $('input[name=id]').val(),  
-    					'pwd' : $('input[name=pwd]').val()},
+    					'pwd' : $('input[name=pwd]').val()}, 
     			dataType : 'json',
     	 		success : function(data){
-    				//alert(data.login);  
-    				if(data.login == 'fail'){ 
-    					$('#loginPwdDiv').text('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.'); 
-    	        		$('#loginPwdDiv').css('color','red');
-    	        		$('#loginPwdDiv').css('font-weight','bold');
-    	        		$('#loginPwdDiv').css('font-size','9pt');
-    				}else{
-    					location.href="/bitFarm/main/main";
-    				}
-    			}
+    	 			if(data.login == 'fail')
+    	 				alert("다시 시도해주세요."); 
+    	 			else 
+    	 				location.href = "/main/main";
+    			}  
     		});     		
     	}
     });
@@ -102,9 +97,7 @@ a.searchA:active {color: black; text-decoration: none;}
         if (key.keyCode == 13) { // 엔터키면
             $("#loginBtn").focus(); // 암호에 포커스
         }
-    });
-
-    
+    });    
     
 </script>
 
