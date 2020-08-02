@@ -84,9 +84,12 @@ a.searchA:active {color: black; text-decoration: none;}
     					'pwd' : $('input[name=pwd]').val()}, 
     			dataType : 'json',
     	 		success : function(data){
-    	 			if(data.login == 'fail')
-    	 				alert("다시 시도해주세요."); 
-    	 			else 
+    	 			if(data.login == 'fail'){
+    	 				$('#loginPwdDiv').text('가입하지 않은 아이디거나, 잘못된 비밀번호입니다.'); 
+	            		$('#loginPwdDiv').css('color','red');
+	            		$('#loginPwdDiv').css('font-weight','bold');
+	            		$('#loginPwdDiv').css('font-size','9pt'); 
+    	 			}else 
     	 				location.href = "/main/main";
     			}  
     		});     		

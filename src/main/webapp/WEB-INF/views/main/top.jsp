@@ -56,8 +56,8 @@
                	커뮤니티
              </a>
              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-               <a class="dropdown-item" href="#">게시판</a>
-               <a class="dropdown-item" href="#">글쓰기</a>               
+               <a class="dropdown-item" href="/board/boardList">게시판</a>
+               <a class="dropdown-item" href="/board/boardWriteForm">글쓰기</a>               
              </div>
             </li>
         </ul>
