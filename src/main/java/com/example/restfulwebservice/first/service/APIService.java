@@ -10,15 +10,18 @@ import com.example.restfulwebservice.first.dto.MatchlistDTO;
 import com.example.restfulwebservice.first.dto.SummonerDTO;
 
 public interface APIService {
-	HashMap<Integer, String> ChampIdToKey();
+	
+	public HashMap<Integer, String> ChampIdToKey();
   
-	SummonerDTO getSummoner(String searchId);
+	public SummonerDTO getSummoner(String searchId);
 
-	LeagueEntryDTO getLeagueEntry(String id);
+	public LeagueEntryDTO getLeagueEntry(String id);
 
-	ChampionInfoDTO getChapionInfo();
+	public ChampionInfoDTO getChapionInfo();
 
-	List<String> getImgName(ChampionInfoDTO championInfoDTO, HashMap<Integer, String> map);
+	public List<String> getImgName(ChampionInfoDTO championInfoDTO, HashMap<Integer, String> map);
 
-	MatchlistDTO getMatchList(String accountId, HashMap<Integer, String> map);
+	public MatchlistDTO getMatchList(String accountId, HashMap<Integer, String> map);
+	
+	public HashMap<String, String> SpellKeyToName();
 }

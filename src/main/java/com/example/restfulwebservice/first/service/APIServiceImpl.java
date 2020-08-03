@@ -250,7 +250,10 @@ public class APIServiceImpl implements APIService {
 				HashMap<String, String> matchInfo = matchWin(gameId, champion);
 				
 				MatchReferenceDTO matchReferenceDTO = new MatchReferenceDTO(
-						gameId, role, season, platformId, champion, championName, queue, lane, timestamp, matchInfo.get("win"), matchInfo.get("kills"), matchInfo.get("assists"), matchInfo.get("deaths"));
+						gameId, role, season, platformId, champion, championName, queue, lane, timestamp, 
+						matchInfo.get("win"), matchInfo.get("kills"), matchInfo.get("assists"), matchInfo.get("deaths"),
+						matchInfo.get("item0"), matchInfo.get("item1"), matchInfo.get("item2"), matchInfo.get("item3"), matchInfo.get("item4"), matchInfo.get("item5"), matchInfo.get("item6"),
+						matchInfo.get("spell1Id"), matchInfo.get("spell2Id"));
 				matchReferenceDTOList.add(matchReferenceDTO);
 								
 			}			 
@@ -264,13 +267,26 @@ public class APIServiceImpl implements APIService {
 		return matchListDTO;		
 	}
 
-	private HashMap<String, String> matchWin(long gameId, int champion) {
+	public HashMap<String, String> matchWin(long gameId, int champion) {
 		String urlStr = "https://kr.api.riotgames.com/lol/match/v4/matches/"+gameId+"?api_key="+API_KEY;
 		HashMap<String, String> map = new HashMap<String, String>();
+		HashMap<String, String> spellMap = SpellKeyToName();
 		String win = "";
 		String kills = "";
 		String deaths = "";
 		String assists = "";
+		
+		String item0 = "";
+		String item1 = "";
+		String item2 = "";
+		String item3 = "";
+		String item4 = "";
+		String item5 = "";
+		String item6 = "";
+		
+		String spell1Id = "";
+		String spell2Id = "";
+		
 		BufferedReader br = null;
 		SummonerDTO summonerDTO = null;
 		
@@ -291,6 +307,8 @@ public class APIServiceImpl implements APIService {
 			for(int i=0; i<arr.size(); i++) {
 				JsonObject data = (JsonObject) arr.get(i);
 				if(data.get("championId").getAsInt() == champion) {
+					spell1Id = data.get("spell1Id").getAsInt() + "";
+					spell2Id = data.get("spell2Id").getAsInt() + ""; 
 					
 		 			JsonObject stats = (JsonObject) data.get("stats");
 					win = stats.get("win").getAsString();
@@ -298,16 +316,57 @@ public class APIServiceImpl implements APIService {
 					deaths = stats.get("deaths").getAsInt() +"";
 					assists = stats.get("assists").getAsInt() +""; 
 					
+					item0 = stats.get("item0").getAsInt() +""; 
+					item1 = stats.get("item1").getAsInt() +""; 
+					item2 = stats.get("item2").getAsInt() +""; 
+					item3 = stats.get("item3").getAsInt() +""; 
+					item4 = stats.get("item4").getAsInt() +""; 
+					item5 = stats.get("item5").getAsInt() +""; 
+					item6 = stats.get("item6").getAsInt() +"";
+					
 					map.put("win", win);
 					map.put("kills", kills);
 					map.put("deaths", deaths);
 					map.put("assists", assists);
+					
+					map.put("item0", item0);
+					map.put("item1", item1);
+					map.put("item2", item2);
+					map.put("item3", item3);
+					map.put("item4", item4);
+					map.put("item5", item5);
+					map.put("item6", item6);
+					
+					map.put("spell1Id", spellMap.get(spell1Id));
+					map.put("spell2Id", spellMap.get(spell2Id));
+					
 				}				 
 			} 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
+		return map; 
+	}
+	
+	public HashMap<String, String> SpellKeyToName(){
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		map.put("1","SummonerBoost");
+		map.put("3","SummonerExhaust");
+		map.put("4","SummonerFlash");
+		map.put("6","SummonerHaste");
+		map.put("7","SummonerHeal"); 
+		map.put("11","SummonerSmite");
+		map.put("12","SummonerTeleport");
+		map.put("13","SummonerMana");	 
+		map.put("14","SummonerDot");
+		map.put("21","SummonerBarrier");
+		map.put("30","SummonerPoroRecall");
+		map.put("31","SummonerPoroThrow");
+		map.put("32","SummonerSnowball");
+		map.put("39","SummonerSnowURFSnowball_Mark");
+		 
 		return map;
 	}
 }

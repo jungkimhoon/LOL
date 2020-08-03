@@ -10,7 +10,7 @@ public interface MemberService {
 
 	public void signUp(HashMap<String, String> map);
 
-	public MemberDTO login(HashMap<String, String> map);  
-  
+	public MemberDTO login(HashMap<String, String> map);   	
+	
 }
   

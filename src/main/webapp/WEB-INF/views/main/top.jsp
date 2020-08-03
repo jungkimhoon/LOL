@@ -18,7 +18,7 @@
 <body>
 
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top navbar-fixed-top">
     <div class="container">    
       <a class="navbar-brand" href="/main/main">전적 검색</a>    
   

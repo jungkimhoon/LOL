@@ -42,8 +42,7 @@ public class APIController {
 		mav.addObject("id", searchId);
 		mav.addObject("display", "../search/getSummoner.jsp");
 		mav.setViewName("/main/main"); 
-		return mav;		
-		
+		return mav;			
 	} 	
 	
 	@RequestMapping(value="/search/searchSummoner", method=RequestMethod.GET)
@@ -54,13 +53,13 @@ public class APIController {
 		SummonerDTO summonerDTO = apiService.getSummoner(searchId);	
 		LeagueEntryDTO leagueEntryDTO = apiService.getLeagueEntry(summonerDTO.getId());
 		MatchlistDTO matchlistDTO = apiService.getMatchList(summonerDTO.getAccountId(), map);
-		 
-		ModelAndView mav = new ModelAndView();		
+				
+		ModelAndView mav = new ModelAndView();		 
 		mav.addObject("summonerDTO", summonerDTO); 
 		mav.addObject("leagueEntryDTO", leagueEntryDTO);
 		mav.addObject("matchlistDTO",matchlistDTO);
 		mav.addObject("searchId", searchId);  
-		mav.addObject("display", "../search/searchSummoner.jsp");
+		mav.addObject("display", "../search/searchSummoner.jsp"); 
 		mav.setViewName("/main/main"); 
 		return mav;				
 	} 		 

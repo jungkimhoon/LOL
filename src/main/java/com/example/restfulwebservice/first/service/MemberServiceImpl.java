@@ -30,7 +30,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public MemberDTO login(HashMap<String, String> map) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub 
 		return memberDAO.login(map);
 	}
 	
