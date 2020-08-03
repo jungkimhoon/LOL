@@ -10,6 +10,7 @@
 		<jsp:include page="top.jsp"/>
 	</div>
 	<br>
+	<div style="height:100px;"></div>
 	<div>
 		<jsp:include page="${display}"/>
 	</div>
