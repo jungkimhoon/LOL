@@ -33,7 +33,7 @@ public class APIServiceImpl implements APIService {
 	
 	@Override
 	public HashMap<Integer, String> ChampIdToKey() {
-		String version = "10.6.1";
+		String version = "10.15.1";
 		String urlStr = "https://ddragon.leagueoflegends.com/cdn/"+version+"/data/en_US/champion.json";
 		BufferedReader br = null;
 		HashMap<Integer, String> map = new HashMap<Integer, String>();
@@ -250,14 +250,14 @@ public class APIServiceImpl implements APIService {
 				HashMap<String, String> matchInfo = matchWin(gameId, champion);
 				
 				MatchReferenceDTO matchReferenceDTO = new MatchReferenceDTO(
-						gameId, role, season, platformId, champion, championName, queue, lane, timestamp, 
+						gameId, role, season, platformId, champion, championName, queue, lane, timestamp, matchInfo.get("gameDuration"),
 						matchInfo.get("win"), matchInfo.get("kills"), matchInfo.get("assists"), matchInfo.get("deaths"),
 						matchInfo.get("item0"), matchInfo.get("item1"), matchInfo.get("item2"), matchInfo.get("item3"), matchInfo.get("item4"), matchInfo.get("item5"), matchInfo.get("item6"),
 						matchInfo.get("spell1Id"), matchInfo.get("spell2Id"));
-				matchReferenceDTOList.add(matchReferenceDTO);
+				matchReferenceDTOList.add(matchReferenceDTO); 
 								
 			}			 
-			 
+			  
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 
@@ -300,8 +300,9 @@ public class APIServiceImpl implements APIService {
 			while((line = br.readLine()) != null) {
 				result = result + line;
 			}
-			JsonParser jsonParser = new JsonParser();
+			JsonParser jsonParser = new JsonParser(); 
 			JsonObject k = (JsonObject) jsonParser.parse(result);
+			String gameDuration = k.get("gameDuration").getAsInt()+"";
 			JsonArray arr = k.getAsJsonArray("participants");
 			
 			for(int i=0; i<arr.size(); i++) {
@@ -328,6 +329,7 @@ public class APIServiceImpl implements APIService {
 					map.put("kills", kills);
 					map.put("deaths", deaths);
 					map.put("assists", assists);
+					map.put("gameDuration", gameDuration);
 					
 					map.put("item0", item0);
 					map.put("item1", item1);

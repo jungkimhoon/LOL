@@ -25,7 +25,7 @@
    	<div style="width:80%; margin: 0 auto;" align="center">
    	<h1>이번주 로테이션 챔피언</h1>
 	<c:forEach var="imgName" items="${imgName}">
-		<img src="https://ddragon.leagueoflegends.com/cdn/10.6.1/img/champion/${imgName }.png" width="70" height="70" title="${imgName }" style="cursor: pointer;">
+		<img src="https://ddragon.leagueoflegends.com/cdn/10.15.1/img/champion/${imgName }.png" width="70" height="70" title="${imgName }" style="cursor: pointer;">
 	</c:forEach>
 	</div>   
 

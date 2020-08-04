@@ -4,8 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<div style="height: 200px; width:80%; margin: 0 auto;">
-	<div style="float:left; width:30px;">&nbsp;</div>  
+<div style="height: 200px; width:900px; margin: 0 auto;">
+	<div style="float:left; width:30px;">&nbsp;</div>   
 	<div style="float:left;"><img src="http://ddragon.leagueoflegends.com/cdn/10.6.1/img/profileicon/${summonerDTO.profileIconId }.png" width="130px" height="130px"></div>
 	
 	<div style="float:left; width:15px;">&nbsp;</div>  
@@ -37,10 +37,10 @@
 </div>
 <c:forEach var="matches" items="${matchlistDTO.matches}">
 <c:if test="${!matches.win}">
-	<div style="background-color:#e2b6b3; height:100px; width:80%; margin:0 auto; border:1px solid #DDDDDD;">
+	<div style="background-color:#e2b6b3; height:100px; width:810px; margin:0 auto; border:1px solid #DDDDDD;">
 </c:if> 
 <c:if test="${matches.win}">
-	<div style="background-color:#a3cfec; height:100px; width:80%; margin:0 auto; border:1px solid #DDDDDD;">
+	<div style="background-color:#a3cfec; height:100px; width:810px; margin:0 auto; border:1px solid #DDDDDD;">
 </c:if> 
 		
 		<div style="float: left; width:100px;">&nbsp;</div>
@@ -125,8 +125,14 @@
 				<div style="background-color: #DDDDDD; width:30px; height:30px; float:left; border:1px solid black; border-radius: 10px / 10px; "> </div> 
 			</c:if>	   
 	</div>
+	<div style="float:left; width:80px;">&nbsp;</div>
+	<div style="float:left; width:180px; height:100px; margin: 0 auto;"> 
+		<div style="height:38px;"> </div>		 
+		<fmt:formatNumber var="time" value="${matches.gameDuration / 60}" pattern="0"/>
+		<font style="font-weight: bold; font-size: 15pt; ">${time }분  ${matches.gameDuration % 60 }초</font>  
 	</div>
-
+</div>
+ 
 	<div style="height:10px"></div>
 </c:forEach> 
 </div>

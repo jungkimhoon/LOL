@@ -17,6 +17,7 @@ public class MatchReferenceDTO {
 	private int queue;
 	private String lane;
 	private long timestamp;
+	private String gameDuration;
 	
 	private String win;  
 	
