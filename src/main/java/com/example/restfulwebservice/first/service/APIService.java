@@ -15,7 +15,7 @@ public interface APIService {
   
 	public SummonerDTO getSummoner(String searchId);
 
-	public LeagueEntryDTO getLeagueEntry(String id);
+	public List<LeagueEntryDTO> getLeagueEntry(String id); 
 
 	public ChampionInfoDTO getChapionInfo();
 

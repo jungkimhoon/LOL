@@ -18,6 +18,7 @@ import com.example.restfulwebservice.first.dto.ChampionInfoDTO;
 import com.example.restfulwebservice.first.dto.LeagueEntryDTO;
 import com.example.restfulwebservice.first.dto.MatchReferenceDTO;
 import com.example.restfulwebservice.first.dto.MatchlistDTO;
+import com.example.restfulwebservice.first.dto.Participants;
 import com.example.restfulwebservice.first.dto.SummonerDTO;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -106,9 +107,10 @@ public class APIServiceImpl implements APIService {
 	}
 
 	@Override
-	public LeagueEntryDTO getLeagueEntry(String id) {
+	public List<LeagueEntryDTO> getLeagueEntry(String id) {
 		String urlStr = "https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/"+id+"?api_key="+API_KEY;
 		BufferedReader br = null;
+		List<LeagueEntryDTO> list = new ArrayList<LeagueEntryDTO>();
 		LeagueEntryDTO leagueEntryDTO = null;
 		
 		try {			
@@ -125,25 +127,28 @@ public class APIServiceImpl implements APIService {
 			
 			JsonParser jsonParser = new JsonParser();
 			JsonArray arr = (JsonArray) jsonParser.parse(result);
-			JsonObject k = (JsonObject) arr.get(0);
-
-			String leagueId = k.get("leagueId").getAsString();
-			String summonerId = k.get("summonerId").getAsString(); 
-			String summonerName = k.get("summonerName").getAsString();
-			String queueType = k.get("queueType").getAsString();
-			String tier = k.get("tier").getAsString(); 
-			String rank = k.get("rank").getAsString();
-			int leaguePoints = k.get("leaguePoints").getAsInt();
-			int wins = k.get("wins").getAsInt();
-			int losses = k.get("losses").getAsInt();
-			
-			leagueEntryDTO = new LeagueEntryDTO(leagueId, summonerId, summonerName, queueType, tier, rank, leaguePoints, wins, losses); 
+			for(int i=0; i<arr.size(); i++) {				
+				JsonObject k = (JsonObject) arr.get(i);
+				
+				String leagueId = k.get("leagueId").getAsString();
+				String summonerId = k.get("summonerId").getAsString(); 
+				String summonerName = k.get("summonerName").getAsString();
+				String queueType = k.get("queueType").getAsString();
+				String tier = k.get("tier").getAsString(); 
+				String rank = k.get("rank").getAsString();
+				int leaguePoints = k.get("leaguePoints").getAsInt();
+				int wins = k.get("wins").getAsInt();
+				int losses = k.get("losses").getAsInt();
+				
+				leagueEntryDTO = new LeagueEntryDTO(leagueId, summonerId, summonerName, queueType, tier, rank, leaguePoints, wins, losses);
+				list.add(leagueEntryDTO);
+			} 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return leagueEntryDTO;
+		return list;
 	}
 
 	@Override
@@ -248,12 +253,14 @@ public class APIServiceImpl implements APIService {
 				String lane = matchObject.get("lane").getAsString();
 
 				HashMap<String, String> matchInfo = matchWin(gameId, champion);
+				List<Participants> participantsList = ParticipantsList(gameId);
 				
 				MatchReferenceDTO matchReferenceDTO = new MatchReferenceDTO(
 						gameId, role, season, platformId, champion, championName, queue, lane, timestamp, matchInfo.get("gameDuration"),
 						matchInfo.get("win"), matchInfo.get("kills"), matchInfo.get("assists"), matchInfo.get("deaths"),
 						matchInfo.get("item0"), matchInfo.get("item1"), matchInfo.get("item2"), matchInfo.get("item3"), matchInfo.get("item4"), matchInfo.get("item5"), matchInfo.get("item6"),
-						matchInfo.get("spell1Id"), matchInfo.get("spell2Id"));
+						matchInfo.get("spell1Id"), matchInfo.get("spell2Id"), participantsList);
+				
 				matchReferenceDTOList.add(matchReferenceDTO); 
 								
 			}			 
@@ -261,18 +268,62 @@ public class APIServiceImpl implements APIService {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace(); 
-		}
+		} 
 		
 		matchListDTO.setMatches(matchReferenceDTOList); 
 		return matchListDTO;		
+	}
+
+	private List<Participants> ParticipantsList(long gameId) {
+		String urlStr = "https://kr.api.riotgames.com/lol/match/v4/matches/"+gameId+"?api_key="+API_KEY;
+		BufferedReader br = null;
+		List<Participants> participantsList = new ArrayList<Participants>();
+		HashMap<Integer, String> map = ChampIdToKey();
+		try {			
+			URL url = new URL(urlStr);
+			HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
+			urlConnection.setRequestMethod("GET");
+			br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(),"UTF-8"));
+			String result = "";
+			String line;
+			while((line = br.readLine()) != null) {
+				result = result + line;
+			}
+			JsonParser jsonParser = new JsonParser();
+			JsonObject k = (JsonObject) jsonParser.parse(result);
+			JsonArray participantIdentities = (JsonArray) k.get("participantIdentities");
+			JsonArray participant = k.getAsJsonArray("participants");
+					 
+			for(int i=0; i<participantIdentities.size(); i++) {
+				JsonObject object = (JsonObject) participantIdentities.get(i);
+				
+				int participantId = object.get("participantId").getAsInt();
+				JsonObject ChampionId = (JsonObject) participant.get(participantId-1);
+				int champID = ChampionId.get("championId").getAsInt();
+				
+				String ChampName = map.get(champID);
+				JsonObject ele = (JsonObject) object.get("player");
+				String summonerName = ele.get("summonerName").getAsString();
+				Participants participants = new Participants(participantId, summonerName, ChampName);
+				participantsList.add(participants); 
+			}
+						
+						
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return participantsList;
 	}
 
 	public HashMap<String, String> matchWin(long gameId, int champion) {
 		String urlStr = "https://kr.api.riotgames.com/lol/match/v4/matches/"+gameId+"?api_key="+API_KEY;
 		HashMap<String, String> map = new HashMap<String, String>();
 		HashMap<String, String> spellMap = SpellKeyToName();
+		
 		String win = "";
-		String kills = "";
+		String kills = ""; 
 		String deaths = "";
 		String assists = "";
 		

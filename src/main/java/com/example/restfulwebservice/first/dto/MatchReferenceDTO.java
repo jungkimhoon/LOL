@@ -1,5 +1,7 @@
 package com.example.restfulwebservice.first.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,7 +35,8 @@ public class MatchReferenceDTO {
 	private String item5;
 	private String item6;
 	
-	private String spell1Id;
-	private String spell2Id;
+	private String spell1Id;  
+	private String spell2Id;  
 	
+	private List<Participants> participantsList;
 } 

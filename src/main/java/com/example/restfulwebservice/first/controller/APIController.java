@@ -51,12 +51,12 @@ public class APIController {
 		HashMap<Integer, String> map = apiService.ChampIdToKey();
 		System.out.println(searchId); 
 		SummonerDTO summonerDTO = apiService.getSummoner(searchId);	
-		LeagueEntryDTO leagueEntryDTO = apiService.getLeagueEntry(summonerDTO.getId());
+		List<LeagueEntryDTO> leagueEntryDTOList = apiService.getLeagueEntry(summonerDTO.getId());
 		MatchlistDTO matchlistDTO = apiService.getMatchList(summonerDTO.getAccountId(), map);
-				
+				 
 		ModelAndView mav = new ModelAndView();		 
 		mav.addObject("summonerDTO", summonerDTO); 
-		mav.addObject("leagueEntryDTO", leagueEntryDTO);
+		mav.addObject("leagueEntryDTOList", leagueEntryDTOList);
 		mav.addObject("matchlistDTO",matchlistDTO);
 		mav.addObject("searchId", searchId);  
 		mav.addObject("display", "../search/searchSummoner.jsp"); 
