@@ -29,14 +29,14 @@
 		border-bottom: 1px solid #e5e5e5; 
 	}
 </style> 
-
-<table width="1200px" cellpadding="15" style="border-top: 2px solid #5f0080; font-size: 12px; border-collapse: collapse;"> 
+<div style="width:1200px; margin: 0 auto;">
+<table width="1200px" cellpadding="15" style="border-top: 2px solid black; font-size: 12px; border-collapse: collapse;"> 
 		<tr>  
 		<td align="center">
 			글번호
 		</td> 
 		    
-		<td style="width: 560px;">  
+		<td style="width: 560px; height: 50px;">  
 			글제목
 		</td>
 		  
@@ -54,7 +54,7 @@
 		${i.boardNum }  
 		</td> 
 		    
-		<td style="width: 560px;">  
+		<td style="width: 560px; height: 50px;">  
 		<a class="subject" href="/board/boardView?seq=${i.boardNum}">${i.boardSubject }</a>
 		</td>
 		  
@@ -67,46 +67,75 @@
 		${i.boardDate}	   	 	 
 		</td>				
 	</tr>	 
+</div>
 </c:forEach> 
 <form id="BoardListForm" name="BoardListForm"> 
-</table>  
-	<input type="hidden" name="pg" value="${pg }">
-	<div align="center" id="pagingDiv">${boardPaging.pagingHTML}</div>    
-	<table>
-	<tr><td valign="middle"> 
-	<select name="searchOption" id="searchOption" style="width: 80px; height:30px;">  
-				<option value="boardSubject">제목
-				<option value="memberId">아이디 
-	</select>       
-	<input type="text" valign="center" name="keyword" value="${keyword }" style="height:30px; ">     
-	<input type="button" id="search" name="search" value="검색">
-	</td></tr>  
-	</table>  
-</form>
 
+</table>  
+<div style="height:50px;"></div>
+<div>
+	<input type="hidden" name="pg" id="pg" value="${pg }">
+	<div align="center" id="pagingDiv">${boardPaging.pagingHTML}</div>    
+</div>
+
+<div style="height:50px;">	
+	<div style="float:left; width:500px; height:50px;">
+		<select name="searchOption" id="searchOption" style="width: 80px; height:30px;">  
+					<option value="boardSubject">제목
+					<option value="memberId">아이디 
+		</select>        
+		<input type="text" valign="center" id="keyword" name="keyword" value="${keyword }" style="height:30px; ">   
+		<!-- <img align="top" src="../resources/images/bg.jpg" id="searchBtn" name="searchBtn" style="height:35px; cursor: pointer;"> -->  
+		<input type="button" id="search" name="search" value="검색"> 
+	</div>
+	<div style="float:left; width:610px;">&nbsp;</div>
+	<div style="float:left;">
+		<button id="goWrite">글쓰기</button>  
+	</div>
+</div>
+</form> 
+ 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript"> 
+
+
 function boardPaging(pg){    
 	location.href='boardList?pg='+pg;	
 } 
   
-$('#search').click(function(event){   
+$("#goWrite").click(function(e){
+	e.preventDefault();
+	location.href='/board/boardWriteForm';
+});
+ 
+$('#search').click(function(){    
+	$('#pg').val(1);   
+	//if(${keyword} != $('#keyword').val())
 	document.BoardListForm.method = 'GET';
 	document.BoardListForm.action = '/board/boardListSearch';
 	document.BoardListForm.submit();  
 });   
   
-function boardSearch(pg){    
-	$('#pg').val(pg);   
-	$('#searchBtn').trigger('click');	  
-} 
+/* function boardSearch(pg){ 
+	$('#pg').val(pg);    
+	$('#search').trigger('click');	    
+}   */
+
+function boardSearch(pg){ 
+	$('#pg').val(pg);    
+	document.BoardListForm.method = 'GET';
+	document.BoardListForm.action = '/board/boardListSearch';
+	document.BoardListForm.submit();     
+}  
 
 $("#keyword").keydown(function (key) { 
-    if (key.keyCode == 13) { // 엔터키면
-        $("#searchBtn").focus(); // 암호에 포커스 
+    if (key.keyCode == 13) { // 엔터키면 
+        $("#search").focus(); // 암호에 포커스  
     }
 });
-</script> 
+ 
+</script>  
+</div> 
 	
-	
+	 
 

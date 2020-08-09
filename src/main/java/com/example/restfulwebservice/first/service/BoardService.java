@@ -1,5 +1,6 @@
 package com.example.restfulwebservice.first.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +19,11 @@ public interface BoardService {
 
 	public BoardPaging boardSearchPaging(Map<String, String> map);
 
-	public List<BoardDTO> boardListSearch(Map<String, String> map); 
+	public List<BoardDTO> boardListSearch(Map<String, String> map);
+ 
+	public void boardModify(HashMap<String, String> map);
+
+	public void boardDelete(String seq);  
   
 	  
 }

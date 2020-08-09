@@ -2,7 +2,13 @@
     pageEncoding="UTF-8"%> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<style type="text/css">
+	a.userName {color:black; text-decoration: none; font-size: 10pt;}  
+	a.userName:link {color: black; text-decoration: none;}
+	a.userName:visited {color: black; text-decoration: none;}
+	a.userName:hover {color: #5f0080; text-decoration: none;} 
+	a.userName:active {color: black; text-decoration: none;} 
+</style>
 
 <div style="height: 200px; width:900px; margin: 0 auto;">
 	<div style="float:left; width:30px;">&nbsp;</div>   
@@ -10,8 +16,7 @@
 	
 		<div style="float:left; width:15px;">&nbsp;</div>   
 		<div style="float:left;"><font style="font-size: 18pt; font-weight: bold;">${summonerDTO.name }</font><br>
-		레벨 : ${summonerDTO.summonerLevel }<br>
-		랭크 : ${leagueEntryDTO.wins }승 ${leagueEntryDTO.losses }패<br>
+		레벨 : ${summonerDTO.summonerLevel }<br> 
 		</div> 
 	<c:forEach var="leagueEntryDTO" items="${leagueEntryDTOList }">
 		<div style="float:left; width:30px;">&nbsp;</div>  
@@ -139,16 +144,16 @@
 		<c:forEach var="participants" items="${matches.participantsList }" begin="0" end="4" step="1">
 			<div style="width:15px; float:left; height:15px;"><img src="https://ddragon.leagueoflegends.com/cdn/10.15.1/img/champion/${participants.champName  }.png" width="15px" height="15px"></div>
 			<div style="height:15px; max-width:60px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-				<div style="max-width:60px; overflow: hidden; font-size:8pt; text-overflow: ellipsis; white-space: nowrap;"><a href="searchSummoner?searchId=${participants.summonerName  }">${participants.summonerName }</a></div>
+				<div style="max-width:60px; overflow: hidden; font-size:8pt; text-overflow: ellipsis; white-space: nowrap;"><a class="userName" href="searchSummoner?searchId=${participants.summonerName  }">${participants.summonerName }</a></div>
 			</div>
 		</c:forEach>  
 		</div>
 		<div style="float:left; width: 10px;">&nbsp;</div>
 		<div style="float:left; width: 80px; height:80px"> 
 		<c:forEach var="participants" items="${matches.participantsList }" begin="5" end="10" step="1">
-			<div style="width:15px; float:left; height:15px;"><img src="https://ddragon.leagueoflegends.com/cdn/10.15.1/img/champion/${participants.champName  }.png" width="15px" height="15px"></div>
+			<div style="width:15px; float:left; height:15px;4"><img src="https://ddragon.leagueoflegends.com/cdn/10.15.1/img/champion/${participants.champName  }.png" width="15px" height="15px"></div>
 			<div style="height:15px; max-width:60px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-				<div style="max-width:60px; overflow: hidden; font-size:8pt; text-overflow: ellipsis; white-space: nowrap;"><a href="searchSummoner?searchId=${participants.summonerName  }">${participants.summonerName }</a></div>
+				<div style="max-width:60px; overflow: hidden; font-size:8pt; text-overflow: ellipsis; white-space: nowrap;"><a class="userName" href="searchSummoner?searchId=${participants.summonerName  }">${participants.summonerName }</a></div>
 			</div>
 		</c:forEach>   
 		</div> 
@@ -158,27 +163,7 @@
 	<div style="height:10px"></div>
 </c:forEach> 
 </div>
-<h1>summonerDTO</h1>
-${summonerDTO.profileIconId } = profileIconId <br>
-${summonerDTO.name } = name<br>
-${summonerDTO.puuid } = puuid<br>
-${summonerDTO.summonerLevel } = summonerLevel<br>
-${summonerDTO.revisionDate } = revisionDate<br>
-${summonerDTO.id } = id<br>
-${summonerDTO.accountId } = accountId<br>
-<br><br>
-<h1>leagueEntryDTO</h1>
-${leagueEntryDTO.leagueId } = leagueId<br>
-${leagueEntryDTO.summonerId } = summonerId<br>
-${leagueEntryDTO.summonerName } = summonerName<br>
-${leagueEntryDTO.queueType } = queueType<br>
-${leagueEntryDTO.tier } = tier<br>
-${leagueEntryDTO.rank } = rank<br>
-${leagueEntryDTO.leaguePoints } = leaguePoints<br>
-${leagueEntryDTO.wins } = wins<br>
-${leagueEntryDTO.losses } = losses<br>
 
-<br><br>
 </body> 
 </html>  
 

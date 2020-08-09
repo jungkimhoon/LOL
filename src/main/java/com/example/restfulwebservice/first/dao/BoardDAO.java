@@ -1,5 +1,6 @@
 package com.example.restfulwebservice.first.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,11 @@ public interface BoardDAO {
 
 	public int boardSearchTotalA(Map<String, String> map);
 
-	public List<BoardDTO> boardListSearch(Map<String, String> map);  
+	public List<BoardDTO> boardListSearch(Map<String, String> map);
+
+	public void boardModify(HashMap<String, String> map); 
+
+	public void boardDelete(String seq);  
   
 }
- 
+  

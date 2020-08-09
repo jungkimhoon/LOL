@@ -36,4 +36,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>     
 	</select>
 	
+	<update id="boardModify" parameterType="java.util.Map">
+		update board set boardSubject = #{boardSubject},
+						boardContent = #{boardContent}						
+						where boardNum = #{seq}  
+	</update>
+	<delete id="boardDelete" parameterType="String"> 
+		delete from board where boardNum = #{seq}
+	</delete>
 </mapper>           

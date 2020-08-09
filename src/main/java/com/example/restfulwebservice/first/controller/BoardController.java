@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -76,11 +78,11 @@ public class BoardController {
 	}  
 	
 	@RequestMapping(value="/board/boardView", method=RequestMethod.GET)
-	public ModelAndView boardView(@RequestParam int seq) {
+	public ModelAndView boardView(@RequestParam int seq, HttpSession session) {
 		ModelAndView mav = new ModelAndView();	
 		  
 		BoardDTO boardDTO = boardService.boardView(seq);		
-		
+	
 		mav.addObject("display", "../board/boardView.jsp");
 		mav.addObject("boardDTO", boardDTO);
 		mav.setViewName("/main/main");	 	
@@ -92,6 +94,7 @@ public class BoardController {
 		//Map에 pg, searchOption, keyword 있음
 		ModelAndView mav = new ModelAndView();	
 		String pg = map.get("pg");
+		System.out.println("pg = "+pg); 
 		BoardPaging boardPaging = boardService.boardSearchPaging(map);
 		 
 		map.put("pg",pg);
@@ -99,11 +102,45 @@ public class BoardController {
 		List<BoardDTO> boardList = boardService.boardListSearch(map);		
 		
 		mav.addObject("pg", pg);
+		mav.addObject("searchOption",map.get("searchOption"));  
+		mav.addObject("keyword",map.get("keyword"));   
 		mav.addObject("boardList", boardList);
 		mav.addObject("boardPaging", boardPaging);
 		mav.addObject("display", "../board/boardListSearch.jsp");
 		mav.setViewName("/main/main");	 	
 		return mav;
 	}  
+	
+	@RequestMapping(value="/board/boardModifyForm", method=RequestMethod.GET)
+	public ModelAndView boardModify(@RequestParam int seq) {
+		ModelAndView mav = new ModelAndView();
+		BoardDTO boardDTO = boardService.boardView(seq);
+		
+		mav.addObject("display", "../board/boardModifyForm");
+		mav.addObject("seq", seq);
+		mav.addObject("boardDTO", boardDTO); 
+		return mav;				
+	}
+	
+	@RequestMapping(value="/board/boardModify", method=RequestMethod.POST)
+	public ModelAndView boardModify(@RequestParam HashMap<String, String> map) {
+		ModelAndView mav = new ModelAndView();	 
+		System.out.println(map.get("seq")+"fsdfsdf");
+		boardService.boardModify(map); 		 
+		
+		mav.addObject("display", "body.jsp"); 
+		mav.setViewName("/main/main");	 	
+		return mav;
+	}  
+	
+	@RequestMapping(value="/board/boardDelete", method=RequestMethod.POST)
+	public ModelAndView boardDelete(@RequestParam String seq) {
+		ModelAndView mav = new ModelAndView();	 
+		boardService.boardDelete(seq);
+		
+		mav.setViewName("jsonView");	 	
+		return mav;
+	}  
+	
 	
 }

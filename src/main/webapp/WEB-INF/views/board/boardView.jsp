@@ -16,8 +16,7 @@
 	.tdstyle{
 	    width: 130px;
 	    padding: 13px 0 13px 20px;
-	    background-color: #F7F5F8; 
-	    
+	    background-color: #F7F5F8; 	    
 	    text-align: left;
 	}
 	
@@ -45,13 +44,12 @@
 	} 
 	
 </style>
- 
-<div class="wrap">
+<div class="wrap"> 
 	
 	 
 		<table width="1300px" > 
 			<tr><td style="border-top: 2px solid #5f0080;" > 
-				<table align="center" style="padding: 0; width:100%;">
+				<table align="center" style="padding: 0; width:1300px;">
 					<tr>  
 						<td class="tdstyle">제목</td>  
 						<td colspan="3" style="border-top: 1px solid #e8e8e8;">${boardDTO.boardSubject}</td> 						
@@ -64,9 +62,9 @@
 					
 					<tr>
 						<td class="tdstyle">작성일</td> 
-						<td >${boardDTO.boardDate }</td> 
-						<td ></td> 
-						<td width="50%"></td>
+						<td width="500px;">${boardDTO.boardDate }</td> 
+						<td class="tdstyle">글번호</td> 
+						<td >${boardDTO.boardNum }</td>
 					</tr>	 
 				</table>
 			</td></tr> 
@@ -74,7 +72,7 @@
 				<td height="30px" style="border-bottom: 0px"></td>
 			</tr>
 			<tr><td style="border-bottom: 0px">   
-				<pre class="contents">${boardDTO.boardContent }</pre><br> 
+				<pre class="contents" style="border: 0px; background: #FFFFFF;">${boardDTO.boardContent }</pre><br> 
 			<c:if test="${boardDTO.boardFile != '0'}">
 				<img src="../storage/${boardDTO.boardFile }">
 			</c:if>
@@ -83,32 +81,39 @@
 				<td height="30px"></td>
 			</tr>
 			<tr><td align="center" style="border-bottom: 2px solid #5f0080; border-top: 2px solid #5f0080;">
-				<input class="layoutB" id="goBackBtn" type="button" value="목록">
-				<c:if test="${admin =='admin' }"> 
+				<input class="layoutB" id="goBackBtn" type="button" value="목록">	
+				  
+				<c:if test="${boardDTO.memberId == sessionScope.memberId }"> 
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+				<input class="layoutB" id="modifyBtn" type="button" value ="수정">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 				<input class="layoutB" id="delBtn" type="button" value ="삭제">
 				</c:if>
 			</td></tr>						
 		</table>	
-		<input type="hidden" name="seq" value="${informationDTO.information_number }">
 </div>  
  
-<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript"> 
 $('#goBackBtn').click(function(){
-	location.href = '/bitFarm/information/infoBoardList?pg=${pg}'
+	window.history.back();
 });
 
 $('#delBtn').click(function(){
 	$.ajax({
 		type : 'post',
-		url : '/bitFarm/information/deleteInfo',
-		data : {'seq' : $('input[name=seq]').val()},
+		url : '/board/boardDelete', 
+		data : {'seq' : '${boardDTO.boardNum}'}, 
 		dataType : 'json',
 		success : function(data){ 			
 			alert("삭제완료"); 
-			location.href='/bitFarm/information/infoBoardList';
+			location.href="/board/boardList";
 		}
 	});
 	
+}); 
+
+$('#modifyBtn').click(function(){
+	location.href="/board/boardModifyForm?seq=${boardDTO.boardNum}";  
 });
 </script>

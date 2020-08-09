@@ -18,7 +18,6 @@
 </head> 
 
 <body>
-
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
     <div class="container">     
@@ -28,8 +27,16 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <form name="searchIdForm"> 
-<input type="text" name="searchId" placeholder="소환사 명..." style="width:460px; height:40px; padding: 0 9px;">
-<button id="searchBtn" style="width:100px; height:35px;">검색</button>   
+      
+ 	<div class="col-sm-6">
+		<div class="input-group">
+	      <input type="text" name="searchId" placeholder="소환사 명..." style="width:460px; height:35px; padding: 0 9px;">
+	      <span class="input-group-btn">
+		<button id="searchBtn" class="btn btn-default" type="button">검색</button>
+	      </span>
+	    </div>
+	 </div>	  
+
 </form> 
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">

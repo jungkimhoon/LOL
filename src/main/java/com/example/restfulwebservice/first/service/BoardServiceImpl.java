@@ -1,5 +1,6 @@
 package com.example.restfulwebservice.first.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,7 +51,7 @@ public class BoardServiceImpl implements BoardService{
 		boardPaging.setPageBlock(5);
 		boardPaging.setPageSize(6);  
 		boardPaging.setTotalA(totalA); 
-		boardPaging.makeSearchPagingHTML();   
+		boardPaging.makePagingHTML();   
 		 
 		return boardPaging; 
 	}
@@ -61,22 +62,34 @@ public class BoardServiceImpl implements BoardService{
 		int totalA = boardDAO.boardSearchTotalA(map);//총글수
 		
 		boardPaging.setCurrentPage(Integer.parseInt(map.get("pg"))); 
-		boardPaging.setPageBlock(3);
-		boardPaging.setPageSize(8);    
+		boardPaging.setPageBlock(5);
+		boardPaging.setPageSize(6);     
+		boardPaging.setTotalA(totalA); 
 		boardPaging.makeSearchPagingHTML();   
 		return boardPaging; 
 	}
 
 	@Override
 	public List<BoardDTO> boardListSearch(Map<String, String> map) {
-		int endNum = Integer.parseInt(map.get("pg"))*8;
-		int startNum = endNum-7; 
+		int endNum = Integer.parseInt(map.get("pg"))*6;
+		int startNum = endNum-5; 
 		 
 		map.put("startNum", startNum+""); 
-		map.put("endNum", endNum+"");  
-		
+		map.put("endNum", endNum+"");   
+		 
 		List<BoardDTO> list = boardDAO.boardListSearch(map);
 		return list;
+	}
+
+	@Override
+	public void boardModify(HashMap<String, String> map) {
+		boardDAO.boardModify(map);
+		
+	}
+
+	@Override
+	public void boardDelete(String seq) { 
+		boardDAO.boardDelete(seq);		
 	} 
 
 } 
