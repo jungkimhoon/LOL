@@ -1,4 +1,4 @@
 # LOL 
-전적 정보 검색 
+전적 정보 검색 사이트
 
-SPRING BOOT 사용!
+SPRING BOOT, RIOT API, ORACLE
